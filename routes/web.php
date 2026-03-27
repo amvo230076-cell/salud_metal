@@ -7,6 +7,11 @@ use App\Http\Controllers\RecursosController;
 
 Route::resource('usuarios', UsuarioController::class);
 
+// Pagina index (o por asi decirlo el login)
+Route::get('/', function () {
+    return redirect()->route('acceso');
+});
+
 Route::get('/usuarios/{id}/edit',[
     UsuarioController::class,'edit'
 ])->name('usuarios.edit');
