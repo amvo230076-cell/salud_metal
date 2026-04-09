@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RecursosController; 
+use App\Http\Controllers\recursosController; 
 
 Route::resource('usuarios', UsuarioController::class);
 
@@ -55,3 +55,7 @@ Route::middleware(['auth'])->group(function () {
         AuthController::class, 'usuarios'
     ])->name('usuarios');
 });
+
+Route::get('/recursos', [
+    recursosController::class, 'recursos'
+])->name('recursos');

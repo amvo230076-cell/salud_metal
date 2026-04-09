@@ -15,6 +15,9 @@
         <h1>Lista de Usuarios</h1>
         
         <div class="d-flex gap-2">
+            <a href="{{ route('recursos') }}">
+                <button class="btn btn-info">Recursos</button>
+            </a>
             <form action="{{ route('cerrar') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">

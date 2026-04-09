@@ -17,6 +17,8 @@
         <br>
         <input type="text" name="usuario" placeholder="Usuario" class="form-control" required>
         <br>
+        <input type="text" name="mail" placeholder="example@gmail.com" class="form-control" required>
+        <br>
         <select name="rol" class="form-control" required>
             <option value="alumno">Alumno</option>
             <option value="psicologo">Psicologo</option>
