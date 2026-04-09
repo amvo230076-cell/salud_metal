@@ -22,6 +22,9 @@
         Usuario:
         <input type="text" name="usuario"><br>
 
+        Correo:
+        <input type="text" name="mail"><br>
+
         Password:
         <input type="password" name="password"><br>
 
