@@ -66,7 +66,6 @@ class UsuarioController extends Controller
         $usuario->update([
             'nombre' => $request->nombre,
             'usuario' => $request->usuario,
-            'mail' => $request->mail,
             'password' => bcrypt($request->password),
             'rol' => $request->rol
         ]);
