@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use App\Models\Cita;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -14,7 +15,8 @@ class UsuarioController extends Controller
     {
 
         $usuarios = Usuario::all();
-        return view('index', compact('usuarios'));
+        $misCitas = Cita::all();
+        return view('index', compact('usuarios', 'misCitas'));
     }
 
     /**

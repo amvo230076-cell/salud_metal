@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Auth;
 
-class VerificaUsuario
+class AlumnoMiddleware
 {
     /**
      * Handle an incoming request.
@@ -22,6 +22,17 @@ class VerificaUsuario
         if(!Auth::check()) {
             return redirect()->route('acceso')
             ->with('Error', 'Se debe de iniciar sesion o registrarse');
+        }
+
+        if(Auth::user()->rol != 'alumno') {
+            if(Auth::user()->rol == 'psicologo') {
+                return redirect()->route('psico-dashboard')
+                ->with('error', 'Acceso denegado: Zona exclusiva para alumnos');
+            }
+            if(!Auth::user()->is_admin) {
+                return redirect()->route('admin-dashboard')
+                ->with('error', 'Acceso denegado: Zona exclusiva para alumnos');
+            }
         }
         return $next($request);
     }

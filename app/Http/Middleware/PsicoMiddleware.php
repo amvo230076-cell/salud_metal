@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class PsicoMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,22 +17,21 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        // Verificar si la sesion esta activa
+        // Verificacion si la sesion esta activa
         if(!Auth::check()) {
             return redirect()->route('registro')
             ->with('error', 'Se debe registrar e iniciar sesion');
         }
 
-        // Verificar que el usuario sea realmente un administador
-        if(!Auth::user()->is_admin) {
+        // Verificar que el usuario sea realmente es un psicologo
+        if(Auth::user()->rol != 'psicologo') {
             if(Auth::user()->rol == 'alumno') {
                 return redirect()->route('usuarios')
-                ->with('error', 'Acceso denegado: No eres administrador');
+                ->with('error', 'Acceso denegado: No eres psicologo');
             }
-            if(Auth::user()->rol == 'psicologo') {
-                return redirect()->route('psico-dashboard')
-                ->with('error', 'Acceso denegado: No eres administrador');
+            if(!Auth::user()->is_admin) {
+                return redirect()->route('admin-dashboard')
+                ->with('error', 'Acceso denegado: No eres psicologo');
             }
         }
 

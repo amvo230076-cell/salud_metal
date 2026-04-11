@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Usuario; 
+use App\Models\Cita; 
 
 class AuthController extends Controller
 {
@@ -51,7 +52,12 @@ class AuthController extends Controller
             if(auth()->user()->is_admin) {
                 return redirect()->route('admin-dashboard');
             }
-            return redirect()->route('usuarios.index');
+
+            if(auth()->user()->rol == 'psicologo') {
+                return redirect()->route('psico-dashboard');
+            }
+
+            return redirect()->route('usuarios');
         }
 
         return back()->withErrors([
@@ -74,5 +80,10 @@ class AuthController extends Controller
 
         $usuarios = Usuario::all();
         return view('admin.dashboard', compact('usuarios'));
+    }
+
+    public function usuarios() {
+        $misCitas = Cita::all();
+        return view('index', compact('misCitas'));
     }
 }

@@ -13,8 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Indicar el uso del alies del Middleware
         $middleware -> alias([
-            'auth' => App\Http\Middleware\VerificaUsuario::class,
-            'admin' => App\Http\Middleware\AdminMiddleware::class
+            'alumno' => App\Http\Middleware\AlumnoMiddleware::class,
+            'admin' => App\Http\Middleware\AdminMiddleware::class,
+            'psicologo' => App\Http\Middleware\PsicoMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
