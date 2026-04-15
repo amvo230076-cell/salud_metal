@@ -26,10 +26,10 @@ class PsicoMiddleware
         // Verificar que el usuario sea realmente es un psicologo
         if(Auth::user()->rol != 'psicologo') {
             if(Auth::user()->rol == 'alumno') {
-                return redirect()->route('usuarios')
+                return redirect()->route('mis-citas')
                 ->with('error', 'Acceso denegado: No eres psicologo');
             }
-            if(!Auth::user()->is_admin) {
+            if(Auth::user()->rol == 'administrador') {
                 return redirect()->route('admin-dashboard')
                 ->with('error', 'Acceso denegado: No eres psicologo');
             }

@@ -12,11 +12,11 @@
     @include('partials.alerts')
     <div class="container">
         <div class="d-flex justify-content-between mb-4">
-            <h1>Centro de Recursos</h1>
-            <a href="{{ Auth::user()->rol == 'psicologo' ? route('psico-dashboard') : route('usuarios') }}" class="btn btn-secondary">Volver</a>
+            <h1>Centro de Recursos @if(Auth::user()->rol == 'administrador') Administrador @endif</h1>
+            <a href="{{ Auth::user()->rol== 'administrador' ? route('admin-dashboard') : (Auth::user()->rol == 'psicologo' ? route('psico-dashboard') : route('mis-citas')) }}" class="btn btn-secondary">Volver</a>
         </div>
 
-        @if(Auth::user()->rol == 'psicologo')
+        @if(Auth::user()->rol == 'psicologo' || Auth::user()->rol == 'administrador')
         <div class="card border-primary mb-5">
             <div class="card-header bg-primary text-white">Subir Guía PDF (Nuevo Recurso)</div>
             <div class="card-body">
@@ -45,7 +45,7 @@
                             <h6>{{ $pdf->titulo }}</h6>
                             <a href="{{ $pdf->enlace }}" target="_blank" class="btn btn-sm btn-outline-danger">Descargar PDF</a>
                             
-                            @if(Auth::user()->rol == 'psicologo')
+                            @if(Auth::user()->rol == 'psicologo' || Auth::user()->rol == 'administrador')
                                 <div class="mt-2 d-flex justify-content-center gap-2">
                                     <a href="{{ route('recursos.edit', $pdf->id) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                                     

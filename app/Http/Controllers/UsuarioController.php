@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Models\Cita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
@@ -13,10 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-
-        $usuarios = Usuario::all();
-        $misCitas = Cita::all();
-        return view('index', compact('usuarios', 'misCitas'));
+        //
     }
 
     /**
@@ -37,8 +35,7 @@ class UsuarioController extends Controller
             'usuario'=> $request->usuario,
             'mail' => $request->mail,
             'password'=> bcrypt($request->password),
-            'rol'=> $request->rol,
-            'is_admin' => $request->rol == 'administrador'
+            'rol'=> $request->rol
         ]);
         return redirect()->route('admin-dashboard')
         ->with('success', 'Usuario creado correctamente.');

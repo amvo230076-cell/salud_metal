@@ -21,17 +21,17 @@ class AlumnoMiddleware
         // Verificar si la sesion del usuario esta activa
         if(!Auth::check()) {
             return redirect()->route('acceso')
-            ->with('Error', 'Se debe de iniciar sesion o registrarse');
+            ->with('warning', 'Se debe de iniciar sesion o registrarse');
         }
 
         if(Auth::user()->rol != 'alumno') {
             if(Auth::user()->rol == 'psicologo') {
                 return redirect()->route('psico-dashboard')
-                ->with('error', 'Acceso denegado: Zona exclusiva para alumnos');
+                ->with('warning', 'Acceso denegado: Zona exclusiva para alumnos');
             }
-            if(!Auth::user()->is_admin) {
+            if(Auth::user()->rol == 'administrador') {
                 return redirect()->route('admin-dashboard')
-                ->with('error', 'Acceso denegado: Zona exclusiva para alumnos');
+                ->with('warning', 'Acceso denegado: Zona exclusiva para alumnos');
             }
         }
         return $next($request);

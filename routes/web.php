@@ -8,11 +8,6 @@ use App\Http\Controllers\CitaController;
 
 Route::resource('usuarios', UsuarioController::class);
 
-// Pagina index (o por asi decirlo el login)
-Route::get('/', function () {
-    return redirect()->route('acceso');
-});
-
 Route::get('/registro', [
     AuthController::class, 'registerForm'
 ])->name('registro');
@@ -47,14 +42,16 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/usuarios/{id}', [
         UsuarioController::class, 'update' 
     ])->name('usuarios.update');
+
+    Route::resource('usuarios', UsuarioController::class);
 });
 
 // Verificacion de alumno
 Route::middleware(['alumno'])->group(function () {
     // Ruta para el panel de alumno
-    Route::get('/lista-usuarios', [
+    Route::get('/mis-citas', [
         AuthController::class, 'usuarios'
-    ])->name('usuarios');
+    ])->name('mis-citas');
 });
 
 // Verificacion de psicologo

@@ -21,18 +21,18 @@ class AdminMiddleware
         // Verificar si la sesion esta activa
         if(!Auth::check()) {
             return redirect()->route('registro')
-            ->with('error', 'Se debe registrar e iniciar sesion');
+            ->with('warning', 'Se debe registrar e iniciar sesion');
         }
 
         // Verificar que el usuario sea realmente un administador
-        if(!Auth::user()->is_admin) {
+        if(Auth::user()->rol != 'administrador') {
             if(Auth::user()->rol == 'alumno') {
-                return redirect()->route('usuarios')
-                ->with('error', 'Acceso denegado: No eres administrador');
+                return redirect()->route('mis-citas')
+                ->with('warning', 'Acceso denegado: No eres administrador');
             }
             if(Auth::user()->rol == 'psicologo') {
                 return redirect()->route('psico-dashboard')
-                ->with('error', 'Acceso denegado: No eres administrador');
+                ->with('warning', 'Acceso denegado: No eres administrador');
             }
         }
 

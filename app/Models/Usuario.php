@@ -20,8 +20,7 @@ class Usuario extends Authenticatable
         'usuario',
         'mail',
         'password',
-        'rol',
-        'is_admin'
+        'rol'
     ];
 
     /**

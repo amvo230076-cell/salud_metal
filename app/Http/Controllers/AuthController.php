@@ -28,8 +28,7 @@ class AuthController extends Controller
             'usuario' => $request->usuario,
             'mail' => $request->mail,
             'password' => Hash::make($request->password),
-            'rol' => $request->rol,
-            'is_admin' => $request->rol == 'administrador'
+            'rol' => $request->rol
         ]);
 
         return redirect()->route('acceso')
@@ -49,7 +48,7 @@ class AuthController extends Controller
         if(Auth::attempt($data)){
             $request->session()->regenerate();
 
-            if(auth()->user()->is_admin) {
+            if(auth()->user()->rol == 'administrador') {
                 return redirect()->route('admin-dashboard');
             }
 
@@ -57,12 +56,10 @@ class AuthController extends Controller
                 return redirect()->route('psico-dashboard');
             }
 
-            return redirect()->route('usuarios');
+            return redirect()->route('mis-citas');
         }
 
-        return back()->withErrors([
-            'usuario' => 'Datos incorrectos',
-        ]);
+        return back()->with('error', 'Usuario o contraseña incorrectos.');
     }
     
     public function logout(Request $request) {
@@ -84,6 +81,6 @@ class AuthController extends Controller
 
     public function usuarios() {
         $misCitas = Cita::all();
-        return view('index', compact('misCitas'));
+        return view('alumno.dashboard', compact('misCitas'));
     }
 }

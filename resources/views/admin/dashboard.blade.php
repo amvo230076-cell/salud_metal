@@ -19,6 +19,10 @@
                 <i class="fa-solid fa-plus"></i> Crear Usuario
             </a>
             
+            <a href="{{ route('recursos') }}" class="btn btn-secondary">
+                <i class="fa-solid fa-book"></i> Recursos
+            </a>
+            
             <form action="{{ route('cerrar') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-danger">

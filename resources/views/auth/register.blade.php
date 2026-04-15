@@ -30,6 +30,7 @@
         <br>
 
         <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{{ route('acceso') }}" class="btn btn-secondary">Volver</a>
 
     </form>
     <hr>

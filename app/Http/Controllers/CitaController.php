@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Cita; 
 use App\Models\Usuario; 
+use App\Mail\AlertaCitaCorreo;
 
 class CitaController extends Controller
 {
@@ -33,13 +35,18 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
-        Cita::create([
+        $cita = Cita::create([
             'alumno_id' => $request->alumno_id,
             'psicologo_id' => $request->psicologo_id,
             'fecha' => $request->fecha,
             'motivo' => $request->motivo,
             'estado' => 'Pendiente'
         ]);
+
+        $alumno = Usuario::find($request->alumno_id);
+        $nombrePsico = auth()->user()->nombre;
+
+        Mail::to($alumno->mail)->send(new AlertaCitaCorreo($cita, $nombrePsico));
 
         return back()->with('success', 'Cita guardada');
     }
