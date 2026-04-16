@@ -1,42 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRO DE USUARIO</title>
+    <title>REGISTRO DE USUARIO - ADMIN</title>
 </head>
 <body>
-
     @extends('layouts.app')
 
     @section('content')
-    @include('partials.alerts')
-    <h1>Registrar Usuario</h1>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Registrar Nuevo Usuario</h1>
+            <a href="{{ route('admin-dashboard') }}" class="btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </a>
+        </div>
 
-    <form method="POST" action="{{ route('usuarios.store') }}">
-        @csrf
+        @include('partials.alerts')
 
-        Nombre:
-        <input type="text" name="nombre"><br>
+        <div class="card shadow">
+            <div class="card-body">
+                <form method="POST" action="{{ route('usuarios.store') }}">
+                    @csrf
 
-        Usuario:
-        <input type="text" name="usuario"><br>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre Completo:</label>
+                        <input type="text" name="nombre" class="form-control" placeholder="Ej. Juan Pérez" required>
+                    </div>
 
-        Correo:
-        <input type="text" name="mail"><br>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de Usuario:</label>
+                        <input type="text" name="usuario" class="form-control" placeholder="Usuario123" required>
+                    </div>
 
-        Password:
-        <input type="password" name="password"><br>
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico:</label>
+                        <input type="email" name="mail" class="form-control" placeholder="example@gmail.com" required>
+                    </div>
 
-        Rol:
-        <select name="rol">
-            <option value="alumno">Alumno</option>
-            <option value="psicologo">Psicologo</option>
-            <option value="administrador">Administrador</option>
-        </select><br>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña:</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
 
-        <button type="submit">Guardar</button>
-    </form>
+                    <div class="mb-3">
+                        <label class="form-label">Rol del Sistema:</label>
+                        <select name="rol" class="form-control" required>
+                            <option value="alumno">Alumno</option>
+                            <option value="psicologo">Psicólogo</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Usuario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     @endsection
 </body>
 </html>
